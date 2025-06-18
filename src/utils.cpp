@@ -1,15 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <crypt.h>
 #include <stdexcept>
-
+#include <fstream>
+#include <crypt.h>
 
 #include "../inc/utils.hpp"
 
 #define CRYPT_OUT_SIZE 128
-
-
 
 // splits a string into segments, seperated by a delimiter
 std::vector<std::string> split_str(const std::string& input, char delim){
@@ -23,6 +21,28 @@ std::vector<std::string> split_str(const std::string& input, char delim){
       start_pos = delim_pos + 1;
     }
     return segments;
+}
+
+// parses all username and password combinations from a shadow file, and strips off unnecessary metadata from the password entries
+std::unordered_map<std::string, std::string> parse_shadow(std::string shadow_path){
+    // open the file
+    std::ifstream shadow_file(shadow_path);
+    if (!shadow_file.good())
+        throw std::runtime_error("Cannot read the shadow file. Does it exist?");
+    // read the file and parse each line
+    std::string curr_line, username, pw_hash;
+    std::vector<std::string> segments;
+    std::unordered_map<std::string, std::string> out;
+    while (std::getline(shadow_file, curr_line)){
+        segments = split_str(curr_line, ':');
+        if (segments.size() < 2)
+            throw std::runtime_error("Invalid shadow file format");
+        username = segments[0];
+        pw_hash = segments[1];
+        out[username] = pw_hash;
+    }
+    shadow_file.close();
+    return out;
 }
 
 // checks a password checksum against a candidate password and returns true if the checksum matches, otherwise returns false
