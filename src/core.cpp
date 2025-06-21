@@ -44,5 +44,8 @@ std::string PassCracker::crack_password(std::string target, bool multithread){
     size_t attack_count = attacks.size();
     for (size_t i = 0; i < attack_count; i++){
         result = attacks[i]->run_attack(checksum, multithread);
+        if (result != "")
+            return result;
     }
+    return "";
 }
