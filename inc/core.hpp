@@ -11,10 +11,12 @@ enum attacks{
 
 class PassCracker{
     public:
+        PassCracker() {};
         PassCracker(const std::string& password_file, const std::vector<size_t>& attack_ids);
+        ~PassCracker();
         std::string crack_password(std::string target);
     private:
         std::unordered_map<std::string, std::string> password_db;
-        std::vector<AttackType> attacks;
+        std::vector<AttackType*> attacks;
 
 };

@@ -9,6 +9,11 @@
 
 #define CRYPT_OUT_SIZE 128
 
+// prints an error with a specified message
+void print_err(const std::string& err_msg){
+    std::cout << "\033[31mError:\033[0m " << err_msg << std::endl;
+}
+
 // splits a string into segments, seperated by a delimiter
 std::vector<std::string> split_str(const std::string& input, char delim){
     std::vector<std::string> segments;
