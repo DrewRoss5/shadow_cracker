@@ -33,3 +33,16 @@ PassCracker::~PassCracker(){
     for (int i = 0; i < attack_count; i++)
         delete this->attacks[i];
 }
+
+std::string PassCracker::crack_password(std::string target, bool multithread){
+    // get the checksum
+    if (!password_db.count(target))
+        throw std::runtime_error("No user \"" + target + "\" found.");
+    std::string checksum = password_db[target];
+    // run the attack
+    std::string result;
+    size_t attack_count = attacks.size();
+    for (size_t i = 0; i < attack_count; i++){
+        result = attacks[i]->run_attack(checksum, multithread);
+    }
+}

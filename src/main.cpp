@@ -41,7 +41,7 @@ int main(int argc, char** argv){
     std::getline(std::cin, target);
     std::cout << "Finding password..." << std::endl;
     try{
-        result = cracker.crack_password(target);
+        result = cracker.crack_password(target, false);
     }
     catch (std::runtime_error e){
         print_err(e.what());
