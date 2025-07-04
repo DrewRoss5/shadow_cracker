@@ -1,7 +1,8 @@
 #include <fstream>
+#include <iostream>
 
 #include "../../inc/attacks/wordlist.hpp"
-#include "../inc/utils.hpp"
+#include "../../inc/utils.hpp"
 
 WordlistCracker::WordlistCracker(const std::string& candidate_path){
     // ensure the candidate file exists

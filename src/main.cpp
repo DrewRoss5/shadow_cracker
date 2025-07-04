@@ -15,6 +15,7 @@ int main(int argc, char** argv){
     std::cout << "Password file: ";
     std::getline(std::cin, password_file);
     // get each attack type
+    std::cout << "Attack Types (enter every attack type seperated by space): ";
     std::getline(std::cin, attack_type_str);
     std::vector<std::string> attack_types = split_str(attack_type_str, ' ');
     std::vector<size_t> attack_ids;

@@ -29,9 +29,12 @@ PassCracker::PassCracker(const std::string& password_file, const std::vector<siz
 }
 
 PassCracker::~PassCracker(){
-    size_t attack_count = this->attacks.size();
-    for (int i = 0; i < attack_count; i++)
-        delete this->attacks[i];
+    /*
+    while (this->attacks.size() > 0){
+        delete static_cast<WordlistCracker*>(this->attacks[this->attacks.size() - 1]);
+        this->attacks.pop_back();
+    }
+    */
 }
 
 std::string PassCracker::crack_password(std::string target, bool multithread){
