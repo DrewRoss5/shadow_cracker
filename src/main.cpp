@@ -37,20 +37,22 @@ int main(int argc, char** argv){
         return 1;
     }
     // run the attack
-    std::string target, result;
-    std::cout << "Target: ";
-    std::getline(std::cin, target);
-    std::cout << "Finding password..." << std::endl;
-    try{
-        result = cracker.crack_password(target, false);
+    std::string targets_str, result;
+    std::cout << "Target(s): ";
+    std::getline(std::cin, targets_str);
+    std::vector<std::string> targets = split_str(targets_str, ' ');
+    for (const std::string& target : targets){
+        std::cout << "Finding password for " + target + "..." << std::endl;
+        try{
+            result = cracker.crack_password(target, false);
+        }
+        catch (std::runtime_error e){
+            print_err(e.what());
+            break;
+        }
+        if (result == "")
+            std::cout << "NO MATCH FOUND" << std::endl;
+        else 
+            std::cout << "MATCH FOUND: " << result << std::endl;
     }
-    catch (std::runtime_error e){
-        print_err(e.what());
-        return 1;
-    }
-    if (result == "")
-        std::cout << "NO MATCH FOUND" << std::endl;
-    else 
-        std::cout << "MATCH FOUND: " << result << std::endl;
-    return 0;
 }
