@@ -44,7 +44,7 @@ int main(int argc, char** argv){
     for (const std::string& target : targets){
         std::cout << "Finding password for " + target + "..." << std::endl;
         try{
-            result = cracker.crack_password(target, false);
+            result = cracker.crack_password(target, true);
         }
         catch (std::runtime_error e){
             print_err(e.what());

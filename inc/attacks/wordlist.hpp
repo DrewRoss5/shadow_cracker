@@ -10,7 +10,7 @@ class WordlistCracker : public AttackType{
     private:
         std::string result;
         std::vector<std::string> candidates;
-        void scan_singlethread(const std::string& checksum);
+        void scan_singlethread(const std::string& checksum, size_t start = 0, size_t end = 0);
         void scan_multithread(const std::string& checksum);
 };
 
