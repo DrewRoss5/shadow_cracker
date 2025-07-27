@@ -6,7 +6,7 @@
 
 class AttackType{
     public:
-        virtual std::string run_attack(const std::string& checksum, bool multithread) = 0;
+        virtual std::string run_attack(const std::string& checksum, size_t thread_count) = 0;
 };
 
 #endif

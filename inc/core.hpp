@@ -14,7 +14,7 @@ class PassCracker{
         PassCracker() {};
         PassCracker(const std::string& password_file, const std::vector<size_t>& attack_ids);
         ~PassCracker();
-        std::string crack_password(std::string target, bool multithread);
+        std::string crack_password(std::string target, size_t thread_count);
     private:
         std::unordered_map<std::string, std::string> password_db;
         std::vector<AttackType*> attacks;

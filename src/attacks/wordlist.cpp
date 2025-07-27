@@ -19,17 +19,16 @@ WordlistCracker::WordlistCracker(const std::string& candidate_path){
 }
 
 // calls either the single- or multithreaded attack, and returns the result
-std::string WordlistCracker::run_attack(const std::string& checksum, bool multithread){
-    if (multithread)
-        scan_multithread(checksum);
+std::string WordlistCracker::run_attack(const std::string& checksum, size_t thread_count){
+    if (thread_count > 1)
+        scan_multithread(checksum, thread_count);
     else
         scan_singlethread(checksum);
     return this->result;
 }
 
 // checks every candidate against the checksum, stopping if the result is found, will use all available threads
-void WordlistCracker::scan_multithread(const std::string& checksum){
-    size_t thread_count = std::thread::hardware_concurrency();
+void WordlistCracker::scan_multithread(const std::string& checksum, size_t thread_count){
     size_t candidate_count = this->candidates.size();
     size_t segment_size = candidate_count / thread_count;
     // spawn all threads to find a match
